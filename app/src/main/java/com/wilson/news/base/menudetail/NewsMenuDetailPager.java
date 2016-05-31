@@ -55,7 +55,6 @@ public class NewsMenuDetailPager extends BaseMenuDetailPager implements OnPageCh
             TabDetailPager pager = new TabDetailPager(mActivity, mNewsTabData.get(i));
             mPagerList.add(pager);
         }
-
         mViewPager.setAdapter(new MenuDetailAdapter());
         mIndicator.setViewPager(mViewPager);// 将viewpager和mIndicator关联起来,必须在viewpager设置完adapter后才能调用
     }

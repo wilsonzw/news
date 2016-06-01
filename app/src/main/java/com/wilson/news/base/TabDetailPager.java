@@ -47,9 +47,7 @@ import java.util.ArrayList;
  * @author wilson
  */
 public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeListener {
-
     NewsData.NewsTabData mTabData;
-    private TextView tvText;
 
     private String mUrl;
     private TabData mTabDetailData;
@@ -103,8 +101,7 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
                 if (mMoreUrl != null) {
                     getMoreDataFromServer();
                 } else {
-                    Toast.makeText(mActivity, "最后一页了", Toast.LENGTH_SHORT)
-                            .show();
+                    Toast.makeText(mActivity, "最后一页了", Toast.LENGTH_SHORT).show();
                     lvList.onRefreshComplete(false);// 收起加载更多的布局
                 }
             }
@@ -113,8 +110,7 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
         lvList.setOnItemClickListener(new OnItemClickListener() {
 
             @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 System.out.println("被点击:" + position);
                 // 35311,34221,34234,34342
                 // 在本地记录已读状态
@@ -124,7 +120,6 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
                     ids = ids + readId + ",";
                     PrefUtils.setString(mActivity, "read_ids", ids);
                 }
-
                 // mNewsAdapter.notifyDataSetChanged();
                 changeReadState(view);// 实现局部界面刷新, 这个view就是被点击的item布局对象
 
@@ -135,7 +130,6 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
                 mActivity.startActivity(intent);
             }
         });
-
         return view;
     }
 
@@ -150,11 +144,9 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
     @Override
     public void initData() {
         String cache = CacheUtils.getCache(mUrl, mActivity);
-
         if (!TextUtils.isEmpty(cache)) {
             parseData(cache, false);
         }
-
         getDataFromServer();
     }
 
@@ -164,7 +156,7 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = (String) responseInfo.result;
+                String result = responseInfo.result;
                 System.out.println("页签详情页返回结果:" + result);
 
                 parseData(result, false);
@@ -194,10 +186,8 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
 
             @Override
             public void onSuccess(ResponseInfo<String> responseInfo) {
-                String result = (String) responseInfo.result;
-
+                String result = responseInfo.result;
                 parseData(result, true);
-
                 lvList.onRefreshComplete(true);
             }
 
@@ -260,8 +250,6 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
                         mHandler.sendEmptyMessageDelayed(0, 3000);// 继续延时3秒发消息,
                         // 形成循环
                     }
-
-                    ;
                 };
 
                 mHandler.sendEmptyMessageDelayed(0, 3000);// 延时3秒后发消息
@@ -277,10 +265,9 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
     /**
      * 头条新闻适配器
      *
-     * @author Kevin
+     * @author wilson
      */
     class TopNewsAdapter extends PagerAdapter {
-
         private BitmapUtils utils;
 
         public TopNewsAdapter() {
@@ -332,13 +319,6 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
                 case MotionEvent.ACTION_DOWN:
                     System.out.println("按下");
                     mHandler.removeCallbacksAndMessages(null);// 删除Handler中的所有消息
-                    // mHandler.postDelayed(new Runnable() {
-                    //
-                    // @Override
-                    // public void run() {
-                    //
-                    // }
-                    // }, 3000);
                     break;
                 case MotionEvent.ACTION_CANCEL:
                     System.out.println("事件取消");
@@ -361,18 +341,15 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
     /**
      * 新闻列表的适配器
      *
-     * @author Kevin
+     * @author wilson
      */
     class NewsAdapter extends BaseAdapter {
 
         private BitmapUtils utils;
 
-        // private MyBitmapUtils utils;
-
         public NewsAdapter() {
             utils = new BitmapUtils(mActivity);
             utils.configDefaultLoadingImage(R.drawable.pic_item_list_default);
-            // utils = new MyBitmapUtils();
         }
 
         @Override
@@ -394,35 +371,25 @@ public class TabDetailPager extends BaseMenuDetailPager implements OnPageChangeL
         public View getView(int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
             if (convertView == null) {
-                convertView = View.inflate(mActivity, R.layout.list_news_item,
-                        null);
+                convertView = View.inflate(mActivity, R.layout.list_news_item, null);
                 holder = new ViewHolder();
-                holder.ivPic = (ImageView) convertView
-                        .findViewById(R.id.iv_pic);
-                holder.tvTitle = (TextView) convertView
-                        .findViewById(R.id.tv_title);
-                holder.tvDate = (TextView) convertView
-                        .findViewById(R.id.tv_date);
-
+                holder.ivPic = (ImageView) convertView.findViewById(R.id.iv_pic);
+                holder.tvTitle = (TextView) convertView.findViewById(R.id.tv_title);
+                holder.tvDate = (TextView) convertView.findViewById(R.id.tv_date);
                 convertView.setTag(holder);
             } else {
                 holder = (ViewHolder) convertView.getTag();
             }
-
             TabData.TabNewsData item = getItem(position);
-
             holder.tvTitle.setText(item.title);
             holder.tvDate.setText(item.pubdate);
-
             utils.display(holder.ivPic, item.listimage);
-
             String ids = PrefUtils.getString(mActivity, "read_ids", "");
             if (ids.contains(getItem(position).id)) {
                 holder.tvTitle.setTextColor(Color.GRAY);
             } else {
                 holder.tvTitle.setTextColor(Color.BLACK);
             }
-
             return convertView;
         }
 

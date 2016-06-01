@@ -6,6 +6,7 @@
       <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidingmenu/library/library.iml" filepath="$PROJECT_DIR$/slidingmenu/library/library.iml" />
       <module fileurl="file://$PROJECT_DIR$/news.iml" filepath="$PROJECT_DIR$/news.iml" />
+      <module fileurl="file://$PROJECT_DIR$/share/share.iml" filepath="$PROJECT_DIR$/share/share.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidingmenu/slidingmenu.iml" filepath="$PROJECT_DIR$/slidingmenu/slidingmenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidingmenu/slidingmenu.iml" filepath="$PROJECT_DIR$/slidingmenu/slidingmenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/slidingmenu/library/slidingmenu-library.iml" filepath="$PROJECT_DIR$/slidingmenu/library/slidingmenu-library.iml" />
